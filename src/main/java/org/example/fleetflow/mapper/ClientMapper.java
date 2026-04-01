@@ -1,4 +1,15 @@
 package org.example.fleetflow.mapper;
 
-public class ClientMapper {
+import org.example.fleetflow.dto.ClientDTO;
+import org.example.fleetflow.entity.Client;
+import org.mapstruct.Mapper;
+
+import java.util.List;
+
+@Mapper(componentModel = "spring")
+public interface ClientMapper {
+    ClientDTO toDTO(Client client);
+    Client toEntity(ClientDTO clientDTO);
+    List<ClientDTO>toDTOList(List<Client>clients);
+
 }

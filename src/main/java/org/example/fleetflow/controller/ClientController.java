@@ -2,10 +2,12 @@ package org.example.fleetflow.controller;
 
 import org.example.fleetflow.entity.Client;
 import org.example.fleetflow.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+@RestController
 
 public class ClientController {
     private ClientService clientService;
@@ -13,7 +15,7 @@ public class ClientController {
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
-
+@RequestMapping("/clients")
     @GetMapping
     public List<Client> listeClients(){
         return clientService.listerClients();

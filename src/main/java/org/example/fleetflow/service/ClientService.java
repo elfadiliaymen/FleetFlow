@@ -3,10 +3,11 @@ package org.example.fleetflow.service;
 import lombok.AllArgsConstructor;
 import org.example.fleetflow.entity.Client;
 import org.example.fleetflow.repository.ClientRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-
+@Service
 @AllArgsConstructor
 public class ClientService {
     private ClientRepository clientRepository;
