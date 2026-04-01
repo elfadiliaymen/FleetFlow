@@ -42,4 +42,8 @@ public class ChauffeurService {
     public List<ChauffeurDTO> getAvailableChauffeurs() {
         return chauffeurMapper.toDTOs(chauffeurRepository.findByDisponibleTrue());
     }
+
+    public List<ChauffeurDTO> getByPermisType(String permisType) {
+        return chauffeurMapper.toDTOs(chauffeurRepository.findByPermisType(permisType));
+    }
 }

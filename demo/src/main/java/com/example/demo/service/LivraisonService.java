@@ -62,4 +62,8 @@ public class LivraisonService {
     public List<LivraisonDTO> getByVille(String ville) {
         return livraisonMapper.toDTOs(livraisonRepository.findLivraisonsByVilleDestination(ville));
     }
+
+    public List<LivraisonDTO> getByChauffeur(Long chauffeurId) {
+        return livraisonMapper.toDTOs(livraisonRepository.findByChauffeurId(chauffeurId));
+    }
 }
