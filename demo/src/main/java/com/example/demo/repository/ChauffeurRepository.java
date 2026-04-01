@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ChauffeurRepository extends JpaRepository<Chauffeur, Long> {
     List<Chauffeur> findByDisponibleTrue();
+    List<Chauffeur> findByPermisType(String permisType);
 }
