@@ -1,6 +1,6 @@
 package org.example.fleetflow.repository;
 
-import org.example.fleetflow.entity.Vehicule;
+import org.example.fleetflow.model.Vehicule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

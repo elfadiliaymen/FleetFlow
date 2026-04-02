@@ -1,4 +1,4 @@
-package org.example.fleetflow.entity;
+package org.example.fleetflow.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

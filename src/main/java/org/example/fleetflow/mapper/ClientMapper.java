@@ -1,7 +1,7 @@
 package org.example.fleetflow.mapper;
 
 import org.example.fleetflow.dto.ClientDTO;
-import org.example.fleetflow.entity.Client;
+import org.example.fleetflow.model.Client;
 import org.mapstruct.Mapper;
 
 import java.util.List;

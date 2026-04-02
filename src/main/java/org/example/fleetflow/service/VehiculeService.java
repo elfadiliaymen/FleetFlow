@@ -1,8 +1,10 @@
 package org.example.fleetflow.service;
 
 import lombok.AllArgsConstructor;
-import org.example.fleetflow.entity.Client;
-import org.example.fleetflow.entity.Vehicule;
+import org.example.fleetflow.dto.VehiculeDTO;
+import org.example.fleetflow.model.Vehicule;
+import org.example.fleetflow.mapper.VehiculeMapper;
+import org.example.fleetflow.repository.ClientRepository;
 import org.example.fleetflow.repository.VehiculeRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,34 +13,40 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class VehiculeService {
+    private final ClientRepository clientRepository;
     private VehiculeRepository vehiculeRepository;
+    private VehiculeMapper vehiculeMapper;
 
-public Vehicule ajouterVehicule(Vehicule vehicule){
-    return vehiculeRepository.save(vehicule);
+public VehiculeDTO ajouterVehicule(VehiculeDTO vehiculeDTO){
+    Vehicule vehicule=vehiculeMapper.toEntity(vehiculeDTO);
+    Vehicule savedVehicule=vehiculeRepository.save(vehicule);
+
+    return vehiculeMapper.toDTO(savedVehicule);
 }
-public Vehicule modifierVehicule(long id,String nvMatricule,String nvType,Double nvCapacite,String nvStatut){
+public VehiculeDTO modifierVehicule(long id,VehiculeDTO  vehiculeDTO){
     Vehicule nvVehicule=vehiculeRepository.findById(id).orElseThrow();
-    nvVehicule.setCapacite(nvCapacite);
-    nvVehicule.setType(nvType);
-    nvVehicule.setStatut(nvStatut);
-    nvVehicule.setMatricule(nvMatricule);
-    return nvVehicule;
+    nvVehicule.setCapacite(vehiculeDTO.getCapacite());
+    nvVehicule.setType(vehiculeDTO.getType());
+    nvVehicule.setStatut(vehiculeDTO.getStatut());
+    nvVehicule.setMatricule(vehiculeDTO.getMatricule());
+    Vehicule updateVehicule=vehiculeRepository.save(nvVehicule);
+    return vehiculeMapper.toDTO(updateVehicule);
 
 }
-public void SupprimerClient(long id){
+public void SupprimerVehicule(long id){
     vehiculeRepository.deleteById(id);
 }
 public  final String DISPONIBLE="disponible";
-public List<Vehicule>getVehiculeDisponibles(){
-    return vehiculeRepository.findByStatut(DISPONIBLE);
+public List<VehiculeDTO>getVehiculeDisponibles(){
+    return vehiculeMapper.toDTOList(vehiculeRepository.findByStatut(DISPONIBLE));
 
 }
-public List<Vehicule>getVehiculeByStatut(String statut){
-    return vehiculeRepository.findByStatut(statut);
+public List<VehiculeDTO>getVehiculeByStatut(String statut){
+    return vehiculeMapper.toDTOList(vehiculeRepository.findByStatut(statut));
 
 }
-public List<Vehicule>getVehiculesCapaciteInferieur(Double capacite ){
-    return vehiculeRepository.findByCapaciteGreaterThan(capacite);
+public List<VehiculeDTO>getVehiculesCapaciteSuperieur(Double capacite ){
+    return  vehiculeMapper.toDTOList(vehiculeRepository.findByCapaciteGreaterThan(capacite));
 }
 
 
