@@ -22,19 +22,8 @@ public class ClientController {
 
     }
    @PostMapping
-    public ResponseEntity<ClientDTO> ajouterClient(
-            @RequestParam String nom,
-            @RequestParam String email,
-            @RequestParam String telephone,
-            @RequestParam  String ville
-    ) {
-        ClientDTO clientDTO = new ClientDTO();
-       clientDTO.setNom(nom);
-       clientDTO.setEmail(email);
-       clientDTO.setTelephone(telephone);
-       clientDTO.setVille(ville);
+    public ResponseEntity<ClientDTO> ajouterClient(@RequestBody ClientDTO clientDTO) {
         return ResponseEntity.ok(clientService.ajouterClient(clientDTO));
-
     }
     @PutMapping("/{id}")
     public ResponseEntity<ClientDTO>modifierClient(@PathVariable long id,@RequestBody ClientDTO clientDTO){
