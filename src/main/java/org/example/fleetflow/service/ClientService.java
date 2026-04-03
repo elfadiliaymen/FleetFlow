@@ -29,7 +29,7 @@ public class ClientService {
         nouvClient.setEmail(clientDTO.getEmail());
         nouvClient.setNom(clientDTO.getNom());
         nouvClient.setTelephone(clientDTO.getTelephone());
-        nouvClient.setVille(clientDTO.getTelephone());
+        nouvClient.setVille(clientDTO.getVille());
         Client updateClient =clientRepository.save(nouvClient);
         return clientMapper.toDTO(updateClient);
     }

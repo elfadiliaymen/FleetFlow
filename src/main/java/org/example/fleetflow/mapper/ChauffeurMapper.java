@@ -11,6 +11,6 @@ import java.util.List;
 public interface ChauffeurMapper {
     ChauffeurDTO toDTO(Chauffeur chauffeur);
     Chauffeur toEntity(ChauffeurDTO chauffeurDTO);
-    List<ChauffeurDTO> toDTOs(List<Chauffeur> chauffeurs);
-    List<Chauffeur> toEntities(List<ChauffeurDTO> chauffeurDTOs);
+    List<ChauffeurDTO> toDTOList(List<Chauffeur> chauffeurs);
+    List<Chauffeur> toEntityList(List<ChauffeurDTO> chauffeurDTOs);
 }

@@ -13,15 +13,17 @@ import java.util.List;
 @AllArgsConstructor
 @Service
 public class VehiculeService {
-    private final ClientRepository clientRepository;
-    private VehiculeRepository vehiculeRepository;
-    private VehiculeMapper vehiculeMapper;
+    private final VehiculeRepository vehiculeRepository;
+    private final VehiculeMapper vehiculeMapper;
 
 public VehiculeDTO ajouterVehicule(VehiculeDTO vehiculeDTO){
     Vehicule vehicule=vehiculeMapper.toEntity(vehiculeDTO);
     Vehicule savedVehicule=vehiculeRepository.save(vehicule);
 
     return vehiculeMapper.toDTO(savedVehicule);
+}
+public List<VehiculeDTO> getAllVehicules(){
+    return vehiculeMapper.toDTOList(vehiculeRepository.findAll());
 }
 public VehiculeDTO modifierVehicule(long id,VehiculeDTO  vehiculeDTO){
     Vehicule nvVehicule=vehiculeRepository.findById(id).orElseThrow();
