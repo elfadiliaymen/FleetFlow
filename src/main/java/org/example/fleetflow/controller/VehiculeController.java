@@ -18,9 +18,14 @@ public class VehiculeController {
     private final VehiculeMapper vehiculeMapper;
 
 
-    public VehiculeController(VehiculeService vehiculeService, ClientService clientService, VehiculeMapper vehiculeMapper) {
+    public VehiculeController(VehiculeService vehiculeService, VehiculeMapper vehiculeMapper) {
         this.vehiculeService = vehiculeService;
         this.vehiculeMapper = vehiculeMapper;
+    }
+
+    @GetMapping
+    public List<VehiculeDTO> listerVehicules() {
+        return vehiculeService.getAllVehicules();
     }
 
     @GetMapping("/disponible")
@@ -30,24 +35,20 @@ public class VehiculeController {
 
     @PostMapping
     public ResponseEntity<VehiculeDTO> ajouterVehicule(
-            @RequestParam String matricule,
-            @RequestParam String type,
-            @RequestParam Double capacite,
-            @RequestParam String Statut
+            @RequestBody VehiculeDTO vehiculeDTO
     ) {
-        VehiculeDTO vehiculeDTO = new VehiculeDTO();
-        vehiculeDTO.setMatricule(matricule);
-        vehiculeDTO.setType(type);
-        vehiculeDTO.setCapacite(capacite);
-        vehiculeDTO.setStatut(Statut);
         return ResponseEntity.ok(vehiculeService.ajouterVehicule(vehiculeDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VehiculeDTO> modifierClient(@PathVariable long id, @RequestBody VehiculeDTO vehiculeDTO) {
+    public ResponseEntity<VehiculeDTO> modifierVehicule(@PathVariable long id, @RequestBody VehiculeDTO vehiculeDTO) {
         return ResponseEntity.ok(vehiculeService.modifierVehicule(id, vehiculeDTO));
+    }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> supprimerVehicule(@PathVariable long id) {
+        vehiculeService.SupprimerVehicule(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("statut/{statut}")

@@ -31,6 +31,11 @@ public class LivraisonController {
         return livraisonService.assignChauffeur(id, chauffeurId);
     }
 
+    @PutMapping("/{id}/assigner-vehicule/{vehiculeId}")
+    public LivraisonDTO assignerVehicule(@PathVariable Long id, @PathVariable Long vehiculeId) {
+        return livraisonService.assignVehicule(id, vehiculeId);
+    }
+
     @GetMapping
     public List<LivraisonDTO> listerLivraisons() {
         return livraisonService.getAllLivraisons();
@@ -39,6 +44,11 @@ public class LivraisonController {
     @GetMapping("/statut/{statut}")
     public List<LivraisonDTO> listerParStatut(@PathVariable String statut) {
         return livraisonService.getByStatut(statut);
+    }
+
+    @GetMapping("/client/{clientId}")
+    public List<LivraisonDTO> listerParClient(@PathVariable Long clientId) {
+        return livraisonService.getByClient(clientId);
     }
 
     @GetMapping("/recherche-par-dates")

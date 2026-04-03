@@ -16,6 +16,8 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
 
     List<Livraison> findByChauffeurId(Long chauffeurId);
 
+    List<Livraison> findByClientId(Long clientId);
+
     @Query("SELECT l FROM Livraison l WHERE l.dateLivraison BETWEEN :startDate AND :endDate")
     List<Livraison> findLivraisonsBetweenDates(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 

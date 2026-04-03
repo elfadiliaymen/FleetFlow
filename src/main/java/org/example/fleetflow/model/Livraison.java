@@ -24,4 +24,9 @@ public class Livraison {
     @ManyToOne
     private Chauffeur chauffeur;
 
+    @ManyToOne
+    private Client client;
+
+    @ManyToOne
+    private Vehicule vehicule;
 }

@@ -36,14 +36,14 @@ public class ChauffeurService {
     }
 
     public List<ChauffeurDTO> getAllChauffeurs() {
-        return chauffeurMapper.toDTOs(chauffeurRepository.findAll());
+        return chauffeurMapper.toDTOList(chauffeurRepository.findAll());
     }
 
     public List<ChauffeurDTO> getAvailableChauffeurs() {
-        return chauffeurMapper.toDTOs(chauffeurRepository.findByDisponibleTrue());
+        return chauffeurMapper.toDTOList(chauffeurRepository.findByDisponibleTrue());
     }
 
     public List<ChauffeurDTO> getByPermisType(String permisType) {
-        return chauffeurMapper.toDTOs(chauffeurRepository.findByPermisType(permisType));
+        return chauffeurMapper.toDTOList(chauffeurRepository.findByPermisType(permisType));
     }
 }
