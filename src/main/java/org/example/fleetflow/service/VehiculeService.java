@@ -45,7 +45,7 @@ public List<VehiculeDTO>getVehiculeByStatut(String statut){
     return vehiculeMapper.toDTOList(vehiculeRepository.findByStatut(statut));
 
 }
-public List<VehiculeDTO>getVehiculesCapaciteSuperieur(Double capacite ){
+public List<VehiculeDTO>getVehiculesCapaciteSuperieur(double capacite ){
     return  vehiculeMapper.toDTOList(vehiculeRepository.findByCapaciteGreaterThan(capacite));
 }
 

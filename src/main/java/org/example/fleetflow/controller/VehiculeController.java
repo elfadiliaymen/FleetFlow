@@ -50,14 +50,14 @@ public class VehiculeController {
 
     }
 
-    @GetMapping("/{statut}")
+    @GetMapping("statut/{statut}")
     public ResponseEntity<List<VehiculeDTO>> getVehiculesByStatut(@PathVariable String statut) {
         return ResponseEntity.ok(vehiculeService.getVehiculeByStatut(statut));
 
     }
 
-    @GetMapping("/{capacite}")
-    public ResponseEntity<List<VehiculeDTO>> getVehiculesCapaciteSuperieur(@PathVariable Double capacite) {
+    @GetMapping("capacite/{capacite}")
+    public ResponseEntity<List<VehiculeDTO>> getVehiculesCapaciteSuperieur(@PathVariable double capacite) {
         return ResponseEntity.ok(vehiculeService.getVehiculesCapaciteSuperieur(capacite));
 
     }

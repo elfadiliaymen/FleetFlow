@@ -18,7 +18,7 @@ public class Vehicule  {
     private Long id;
     private String matricule;
     private String type;
-    private Double capacite;
+    private double capacite;
     private String statut;
 
 }
