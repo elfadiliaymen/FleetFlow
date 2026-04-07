@@ -11,5 +11,4 @@ public interface VehiculeMapper {
     VehiculeDTO toDTO(Vehicule vehicule);
     Vehicule toEntity(VehiculeDTO vehicule);
     List<VehiculeDTO>toDTOList(List<Vehicule>vehicules);
-
 }

@@ -11,5 +11,4 @@ public class ClientDTO {
     String email;
     String ville;
     String telephone;
-
 }
