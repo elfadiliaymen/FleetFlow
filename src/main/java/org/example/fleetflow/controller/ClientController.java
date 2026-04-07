@@ -1,5 +1,6 @@
 package org.example.fleetflow.controller;
 
+import jakarta.validation.Valid;
 import org.example.fleetflow.dto.ClientDTO;
 import org.example.fleetflow.service.ClientService;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +23,11 @@ public class ClientController {
 
     }
    @PostMapping
-    public ResponseEntity<ClientDTO> ajouterClient(@RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientDTO> ajouterClient(@Valid @RequestBody ClientDTO clientDTO) {
         return ResponseEntity.ok(clientService.ajouterClient(clientDTO));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<ClientDTO>modifierClient(@PathVariable long id,@RequestBody ClientDTO clientDTO){
+    public ResponseEntity<ClientDTO>modifierClient(@PathVariable long id,@Valid @RequestBody ClientDTO clientDTO){
         return ResponseEntity.ok(clientService.modifierClient(id,clientDTO));
 
 
