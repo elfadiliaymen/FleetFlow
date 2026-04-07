@@ -1,5 +1,6 @@
 package org.example.fleetflow.controller;
 
+import jakarta.validation.Valid;
 import org.example.fleetflow.dto.LivraisonDTO;
 import org.example.fleetflow.service.LivraisonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,12 @@ public class LivraisonController {
     private LivraisonService livraisonService;
 
     @PostMapping
-    public LivraisonDTO creerLivraison(@RequestBody LivraisonDTO livraisonDTO) {
+    public LivraisonDTO creerLivraison(@Valid @RequestBody LivraisonDTO livraisonDTO) {
         return livraisonService.createLivraison(livraisonDTO);
     }
 
     @PutMapping("/{id}/statut")
-    public LivraisonDTO modifierStatut(@PathVariable Long id, @RequestParam String statut) {
+    public LivraisonDTO modifierStatut(@PathVariable Long id,@Valid @RequestParam String statut) {
         return livraisonService.updateStatut(id, statut);
     }
 
