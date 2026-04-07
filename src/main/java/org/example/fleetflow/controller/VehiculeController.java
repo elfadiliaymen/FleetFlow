@@ -1,5 +1,6 @@
 package org.example.fleetflow.controller;
 
+import jakarta.validation.Valid;
 import org.example.fleetflow.dto.VehiculeDTO;
 import org.example.fleetflow.mapper.VehiculeMapper;
 import org.example.fleetflow.service.ClientService;
@@ -35,13 +36,13 @@ public class VehiculeController {
 
     @PostMapping
     public ResponseEntity<VehiculeDTO> ajouterVehicule(
-            @RequestBody VehiculeDTO vehiculeDTO
+            @Valid @RequestBody VehiculeDTO vehiculeDTO
     ) {
         return ResponseEntity.ok(vehiculeService.ajouterVehicule(vehiculeDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VehiculeDTO> modifierVehicule(@PathVariable long id, @RequestBody VehiculeDTO vehiculeDTO) {
+    public ResponseEntity<VehiculeDTO> modifierVehicule(@PathVariable long id,@Valid @RequestBody VehiculeDTO vehiculeDTO) {
         return ResponseEntity.ok(vehiculeService.modifierVehicule(id, vehiculeDTO));
     }
 
