@@ -22,5 +22,4 @@ public class ClientDTO {
     @NotBlank(message="ce champ est obligatoire")
 
     String telephone;
-
 }

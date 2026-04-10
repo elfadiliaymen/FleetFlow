@@ -1,6 +1,5 @@
 package org.example.fleetflow.controller;
 
-import jakarta.validation.Valid;
 import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.service.ChauffeurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +19,12 @@ public class ChauffeurController {
     }
 
     @PostMapping
-    public ChauffeurDTO ajouterChauffeur(@Valid  @RequestBody ChauffeurDTO chauffeurDTO) {
+    public ChauffeurDTO ajouterChauffeur(@RequestBody ChauffeurDTO chauffeurDTO) {
         return chauffeurService.addChauffeur(chauffeurDTO);
     }
 
     @PutMapping("/{id}")
-    public ChauffeurDTO modifierChauffeur(@PathVariable Long id,@Valid @RequestBody ChauffeurDTO chauffeurDTO) {
+    public ChauffeurDTO modifierChauffeur(@PathVariable Long id, @RequestBody ChauffeurDTO chauffeurDTO) {
         return chauffeurService.updateChauffeur(id, chauffeurDTO);
     }
 
