@@ -4,7 +4,6 @@ import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.dto.ChauffeurDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
