@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
- @Builder
+
 public class Livraison {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

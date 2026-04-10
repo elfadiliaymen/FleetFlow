@@ -5,6 +5,7 @@ import org.example.fleetflow.dto.ClientDTO;
 import org.example.fleetflow.model.Client;
 import org.example.fleetflow.mapper.ClientMapper;
 import org.example.fleetflow.repository.ClientRepository;
+import org.example.fleetflow.repository.LivraisonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class ClientService {
     private ClientRepository clientRepository;
     private ClientMapper clientMapper;
+    private  LivraisonRepository livraisonRepository;
 
 
     public ClientDTO ajouterClient(ClientDTO clientDTO){
@@ -34,6 +36,8 @@ public class ClientService {
         return clientMapper.toDTO(updateClient);
     }
     public List<ClientDTO>listerClients(){
+//        Long total= livraisonRepository.CountLivraisonByClient();
+
         List<Client> clients=clientRepository.findAll();
         return clientMapper.toDTOList(clients);
     }

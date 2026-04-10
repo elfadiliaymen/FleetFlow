@@ -12,6 +12,9 @@ import java.util.List;
 @Repository
 public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
 
+//    @Query ("SELECT COUNT(l) from Livraison  l where l.client.id= :idClient")
+//    Long CountLivraisonByClient(@Param("idClient") int idClient);
+
     List<Livraison> findByStatut(String statut);
 
     List<Livraison> findByChauffeurId(Long chauffeurId);

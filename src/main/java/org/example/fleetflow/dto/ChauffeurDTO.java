@@ -8,7 +8,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ChauffeurDTO {
     @NotNull(message="ce champ ne doit pas etre null")
     private Long id;
