@@ -20,4 +20,5 @@ public class Client {
     private String ville;
     private String telephone;
 
+
 }

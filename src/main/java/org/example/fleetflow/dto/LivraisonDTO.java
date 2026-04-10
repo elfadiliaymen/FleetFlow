@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class LivraisonDTO {
     private Long id;
     private LocalDateTime dateLivraison;
