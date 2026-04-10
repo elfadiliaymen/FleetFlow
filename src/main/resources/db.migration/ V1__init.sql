@@ -1,4 +1,4 @@
-CREATE TABLE Client(
+CREATE TABLE  IF NOT EXISTS Client(
     id BIGINT auto_increment primary,
     email varchar(255) UNIQUE ,
     nom varchar(255),
@@ -7,7 +7,7 @@ CREATE TABLE Client(
 
 )
 
-CREATE TABLE Vehicule(
+CREATE TABLE IF NOT EXISTS Vehicule(
     id BIGINT auto_increment primary,
     capacite double ,
     matricule varchar(255) UNIQUE,
@@ -15,7 +15,7 @@ CREATE TABLE Vehicule(
     type varchar(255)
 
 )
-CREATE TABLE Chauffeur(
+CREATE TABLE IF NOT EXISTS  Chauffeur(
     id BIGINT auto_increment primary,
     diponible Boolean,
     nom   varchar(255),
@@ -24,7 +24,7 @@ CREATE TABLE Chauffeur(
 
 
 )
-CREATE TABLE Livraison(
+CREATE TABLE  IF NOT EXISTS Livraison(
     id BIGINT auto_increment primary key,
     adresse_depart varchar(255),
     adresse_destination varchar(255),
