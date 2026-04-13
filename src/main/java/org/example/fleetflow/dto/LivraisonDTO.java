@@ -1,5 +1,6 @@
 package org.example.fleetflow.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,8 +13,14 @@ import java.time.LocalDateTime;
 public class LivraisonDTO {
     private Long id;
     private LocalDateTime dateLivraison;
+    @NotBlank(message="ce champ est obligatoire")
+
     private String adresseDepart;
+    @NotBlank(message="ce champ est obligatoire")
+
     private String adresseDestination;
+    @NotBlank(message="ce champ est obligatoire")
+
     private String statut;
     private Long chauffeurId;
     private Long clientId;

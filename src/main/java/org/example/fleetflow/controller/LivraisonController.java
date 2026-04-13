@@ -68,4 +68,9 @@ public class LivraisonController {
     public List<LivraisonDTO> listerParChauffeur(@PathVariable Long chauffeurId) {
         return livraisonService.getByChauffeur(chauffeurId);
     }
+
+    @GetMapping("/ville")
+    public List<LivraisonDTO>getByVille(@RequestParam String ville){
+        return livraisonService.getLivraisonByVille(ville);
+    }
 }

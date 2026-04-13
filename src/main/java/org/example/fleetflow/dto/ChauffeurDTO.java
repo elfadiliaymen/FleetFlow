@@ -10,7 +10,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ChauffeurDTO {
-//    @NotNull(message="ce champ ne doit pas etre null")
     private Long id;
     @NotBlank(message="le nom est obligatoire")
     private String nom;

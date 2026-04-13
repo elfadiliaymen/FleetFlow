@@ -9,7 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClientDTO {
-//    @NotNull(message="ce champ doit pas etre null")
     Long id;
     @NotBlank(message="ce champ est obligatoire")
 
