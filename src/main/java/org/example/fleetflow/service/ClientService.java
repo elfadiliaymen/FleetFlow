@@ -17,6 +17,10 @@ public class ClientService {
 
     public ClientDTO ajouterClient(ClientDTO clientDTO){
         Client client=clientMapper.toEntity(clientDTO);
+        if(clientRepository.existsByEmail(clientDTO.getEmail())){
+            throw new RuntimeException("email deja existe");
+
+        }
         Client savedClient=clientRepository.save(client);
         return clientMapper.toDTO(savedClient);
 
