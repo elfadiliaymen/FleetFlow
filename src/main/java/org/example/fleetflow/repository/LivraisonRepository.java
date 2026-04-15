@@ -41,6 +41,8 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
 
     @Query(value="SELECT * FROM Livraison l JOIN Chauffeur c ON l.chauffeur_id=c.id where c.disponible ==true" ,nativeQuery = true)
     List<Livraison>afficherLivraisonDisponible();
+    //10-Afficher les livraisons assignées à des véhicules disponibles.
 
+    @Query(value="SELECT * FROM LIVRAISON l JOIN Vehicule v ON v.id=l.vehicule_id where
 }
 
