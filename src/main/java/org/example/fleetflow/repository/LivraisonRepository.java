@@ -39,10 +39,24 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
 
 //9-Afficher les livraisons dont le chauffeur est disponible.
 
-    @Query(value="SELECT * FROM Livraison l JOIN Chauffeur c ON l.chauffeur_id=c.id where c.disponible ==true" ,nativeQuery = true)
+    @Query(value="SELECT * FROM Livraison l JOIN Chauffeur c ON l.chauffeur_id=c.id where c.disponible =true" ,nativeQuery = true)
     List<Livraison>afficherLivraisonDisponible();
     //10-Afficher les livraisons assignées à des véhicules disponibles.
 
-    @Query(value="SELECT * FROM LIVRAISON l JOIN Vehicule v ON v.id=l.vehicule_id where
+    @Query(value="SELECT * FROM LIVRAISON l JOIN Vehicule v ON v.id=l.vehicule_id where v.statut=disponible",nativeQuery = true)
+    List<Livraison>livraisonsVehiculesDisponibles();
+//11-Afficher les livraisons selon la ville du client.
+    @Query(value="SELECT * FROM LIVRAISON l JOIN CLIENT c  ON c.id=l.client_id where c.ville = :ville",nativeQuery = true)
+    List<Livraison>livraisonsVilleClient(@Param("ville")String ville);
+
+    //12-Afficher les livraisons planifiées après la date actuelle.
+    @Query(value="SELECT * FROM LIVRAISON l WHERE  l.date_livraison > CURRENT_DATE()",nativeQuery = true)
+    List<Livraison>livraisonsApresDateActuelle();
+    //13-Nombre de livraisons par statut
+
+    @Query(value="SELECT COUNT(statut) FROM LIVRAISON",nativeQuery = true)
+    Long nombreLivraisonsStatut();
+
+
 }
 
