@@ -54,8 +54,18 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
     List<Livraison>livraisonsApresDateActuelle();
     //13-Nombre de livraisons par statut
 
-    @Query(value="SELECT COUNT(statut) FROM LIVRAISON",nativeQuery = true)
-    Long nombreLivraisonsStatut();
+    @Query(value="SELECT  statut,COUNT(*) FROM LIVRAISON GROUP BY statut",nativeQuery = true)
+    List<Object[]>  nombreLivraisonsStatut();
+    //14-Afficher le nombre de livraisons par ville destination.
+
+    @Query(value="SELECT adresse_destination,COUNT(*) FROM LIVRAISON GROUP BY adresse_destination",nativeQuery = true)
+    List<Object[]> nombreLivraisonVille();
+
+    //15-Afficher la dernière livraison pour chaque client.
+    //modification sur cette requete incorrecte
+    @Query(value="SELECT  * FROM LIVRAISON l JOIN Client c on l.client_id=c.id ORDER BY l.date_livraison DESC LIMIT 1",nativeQuery = true)
+    List<Livraison> derniereLivraisonsClient();
+
 
 
 }
