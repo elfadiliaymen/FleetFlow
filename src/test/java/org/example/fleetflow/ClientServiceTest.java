@@ -62,6 +62,8 @@ public class ClientServiceTest {
         assertThrows(RuntimeException.class,()->
                 clientService.ajouterClient(clientDTO));
 
+        verify(clientRepository, times(1)).existsByEmail("imane@gmail.com");
+
         verify(clientRepository,never()).save(any());
 
 
