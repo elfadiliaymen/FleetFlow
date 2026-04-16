@@ -11,8 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +47,24 @@ public class ClientServiceTest {
         verify(clientMapper,times(1)).toEntity(clientDTO);
         verify(clientRepository,times(1)).save(client);
         verify(clientMapper,times(1)).toDTO(savedClient);
+
+
+    }
+    @Test
+    void verifier_email(){
+        ClientDTO clientDTO = new ClientDTO();
+        clientDTO.setEmail("imane@gmail.com");
+
+
+
+        when(clientRepository.existsByEmail("imane@gmail.com")).thenReturn(true);
+
+        assertThrows(RuntimeException.class,()->
+                clientService.ajouterClient(clientDTO));
+
+        verify(clientRepository,never()).save(any());
+
+
 
 
     }
