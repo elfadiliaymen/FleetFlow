@@ -1,0 +1,1 @@
+ALTER TABLE livraison ADD COLUMN date_de_ec DATETIME;
