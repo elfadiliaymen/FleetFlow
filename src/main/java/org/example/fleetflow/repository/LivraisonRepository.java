@@ -1,5 +1,6 @@
 package org.example.fleetflow.repository;
 
+import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.model.Client;
 import org.example.fleetflow.model.Livraison;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -62,9 +63,13 @@ public interface LivraisonRepository extends JpaRepository<Livraison, Long> {
     List<Object[]> nombreLivraisonVille();
 
     //15-Afficher la dernière livraison pour chaque client.
-    //modification sur cette requete incorrecte
-    @Query(value="SELECT  * FROM LIVRAISON l JOIN Client c on l.client_id=c.id ORDER BY l.date_livraison DESC LIMIT 1",nativeQuery = true)
-    List<Livraison> derniereLivraisonsClient();
+
+    @Query(value="SELECT * FROM Livraison l  WHERE (l.client_id,l.date_livraison) IN (SELECT  client_id ,MAX (date_livraison) FROM LIVRAISON GROUP BY client_id)",nativeQuery = true)
+    List<Livraison>derniereLivraisonsClient();
+
+    //16-Afficher les chauffeurs ayant effectué le plus de livraisons.
+    @Query(value =" SELECT c FROM Chauffeur c JOIN  Livraison l  ON l.chauffeur_id=c.id WHERE c.id IN(SELECT  chauffeur_id from Chauffeur  c GROUP BY chauffeur_id ),nativeQuery = true  ")
+    List<Chauffeur>chauffeurPlusLivraisons();
 
 
 
