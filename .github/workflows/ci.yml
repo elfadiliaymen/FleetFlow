@@ -1,0 +1,53 @@
+name: FleetFlow
+
+on:
+  push:
+    branches: ["ci-cd-imane"]
+  pull_request:
+    branches: ["ci-cd-imane"]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: 2005085
+          MYSQL_DATABASE: fleetflow
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        ports:
+
+            3307:3306
+
+steps:
+
+  - name: Checkout code
+    uses: actions/checkout@v4
+
+
+  - name: Setup Java
+    uses: actions/setup-java@v4
+    with:
+    java-version: '21'
+    distribution: 'temurin'
+    cache: 'maven'
+
+
+  - name: Run Tests
+    run: mvn test
+    env:
+    SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/fleetflow
+    SPRING_DATASOURCE_USERNAME: root
+    SPRING_DATASOURCE_PASSWORD: 2005085
+    SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    SPRING_FLYWAY_ENABLED: true
+
+
+  - name: Build with Maven
+    run: mvn package -DskipTests
