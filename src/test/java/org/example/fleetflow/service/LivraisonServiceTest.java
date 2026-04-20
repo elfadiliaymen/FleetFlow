@@ -3,101 +3,90 @@ package org.example.fleetflow.service;
 import org.example.fleetflow.dto.LivraisonDTO;
 import org.example.fleetflow.mapper.LivraisonMapper;
 import org.example.fleetflow.model.Chauffeur;
+import org.example.fleetflow.model.Client;
 import org.example.fleetflow.model.Livraison;
 import org.example.fleetflow.model.Vehicule;
-import org.example.fleetflow.repository.*;
+import org.example.fleetflow.repository.ChauffeurRepository;
+import org.example.fleetflow.repository.ClientRepository;
+import org.example.fleetflow.repository.LivraisonRepository;
+import org.example.fleetflow.repository.VehiculeRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class LivraisonServiceTest {
+
+    @Mock
+    private LivraisonRepository livraisonRepository;
+    @Mock
+    private ChauffeurRepository chauffeurRepository;
+    @Mock
+    private ClientRepository clientRepository;
+    @Mock
+    private VehiculeRepository vehiculeRepository;
+    @Mock
+    private LivraisonMapper livraisonMapper;
+
+    @InjectMocks
+    private LivraisonService livraisonService;
 
     @Test
     void testCreerLivraison() {
-
-        LivraisonRepository repo = mock(LivraisonRepository.class);
-        LivraisonMapper mapper = mock(LivraisonMapper.class);
-        LivraisonService service = new LivraisonService(
-            repo, 
-            mock(ChauffeurRepository.class), 
-            mock(ClientRepository.class), 
-            mock(VehiculeRepository.class), 
-            mapper
-        );
-
-
         LivraisonDTO dtoFake = new LivraisonDTO();
         dtoFake.setStatut("EN_ATTENTE");
 
-        when(mapper.toEntity(any())).thenReturn(new Livraison());
-        when(repo.save(any())).thenReturn(new Livraison());
-        when(mapper.toDTO(any())).thenReturn(dtoFake);
+        when(livraisonMapper.toEntity(any())).thenReturn(new Livraison());
+        when(livraisonRepository.save(any())).thenReturn(new Livraison());
+        when(livraisonMapper.toDTO(any())).thenReturn(dtoFake);
 
-
-        LivraisonDTO result = service.createLivraison(new LivraisonDTO());
+        LivraisonDTO result = livraisonService.createLivraison(new LivraisonDTO());
+        
+        assertNotNull(result);
         assertEquals("EN_ATTENTE", result.getStatut());
+        verify(livraisonRepository).save(any());
     }
 
     @Test
     void testAssignerChauffeurEtVehicule() {
-
-        LivraisonRepository repo = mock(LivraisonRepository.class);
-        ChauffeurRepository chauffeurRepo = mock(ChauffeurRepository.class);
-        VehiculeRepository vehiculeRepo = mock(VehiculeRepository.class);
-        LivraisonMapper mapper = mock(LivraisonMapper.class);
-        LivraisonService service = new LivraisonService(
-            repo, 
-            chauffeurRepo, 
-            mock(ClientRepository.class), 
-            vehiculeRepo, 
-            mapper
-        );
-
-
-        when(repo.findById(1L)).thenReturn(Optional.of(new Livraison()));
-        when(chauffeurRepo.findById(2L)).thenReturn(Optional.of(new Chauffeur()));
-        when(vehiculeRepo.findById(3L)).thenReturn(Optional.of(new Vehicule()));
-        when(repo.save(any())).thenReturn(new Livraison());
+        when(livraisonRepository.findById(1L)).thenReturn(Optional.of(new Livraison()));
+        when(chauffeurRepository.findById(2L)).thenReturn(Optional.of(new Chauffeur()));
+        when(vehiculeRepository.findById(3L)).thenReturn(Optional.of(new Vehicule()));
+        when(livraisonRepository.save(any())).thenReturn(new Livraison());
         
         LivraisonDTO dtoResultat = new LivraisonDTO();
         dtoResultat.setChauffeurId(2L);
         dtoResultat.setVehiculeId(3L);
-        when(mapper.toDTO(any())).thenReturn(dtoResultat);
+        when(livraisonMapper.toDTO(any())).thenReturn(dtoResultat);
 
-
-        service.assignChauffeur(1L, 2L); // Assigner chauffeur
-        LivraisonDTO result = service.assignVehicule(1L, 3L); // Assigner vehicule
+        livraisonService.assignChauffeur(1L, 2L);
+        LivraisonDTO result = livraisonService.assignVehicule(1L, 3L);
 
         assertEquals(2L, result.getChauffeurId());
         assertEquals(3L, result.getVehiculeId());
+        verify(livraisonRepository, times(2)).save(any());
     }
 
     @Test
     void testModifierStatut() {
-
-        LivraisonRepository repo = mock(LivraisonRepository.class);
-        LivraisonMapper mapper = mock(LivraisonMapper.class);
-        LivraisonService service = new LivraisonService(
-            repo, 
-            mock(ChauffeurRepository.class), 
-            mock(ClientRepository.class), 
-            mock(VehiculeRepository.class), 
-            mapper
-        );
-
-
-        when(repo.findById(1L)).thenReturn(Optional.of(new Livraison()));
-        when(repo.save(any())).thenReturn(new Livraison());
+        when(livraisonRepository.findById(1L)).thenReturn(Optional.of(new Livraison()));
+        when(livraisonRepository.save(any())).thenReturn(new Livraison());
         
         LivraisonDTO dtoStatut = new LivraisonDTO();
         dtoStatut.setStatut("LIVREE");
-        when(mapper.toDTO(any())).thenReturn(dtoStatut);
+        when(livraisonMapper.toDTO(any())).thenReturn(dtoStatut);
 
-
-        LivraisonDTO result = service.updateStatut(1L, "LIVREE");
+        LivraisonDTO result = livraisonService.updateStatut(1L, "LIVREE");
+        
+        assertNotNull(result);
         assertEquals("LIVREE", result.getStatut());
+        verify(livraisonRepository).save(any());
     }
 }

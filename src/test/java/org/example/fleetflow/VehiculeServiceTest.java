@@ -1,5 +1,6 @@
 package org.example.fleetflow;
 
+import org.example.fleetflow.dto.LivraisonDTO;
 import org.example.fleetflow.dto.VehiculeDTO;
 import org.example.fleetflow.mapper.ClientMapper;
 import org.example.fleetflow.mapper.VehiculeMapper;
@@ -15,8 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -73,13 +73,6 @@ public class VehiculeServiceTest {
 
     assertNotNull(resultat);
     assertEquals(1,resultat.size());
-
-
-
-
-
-
-
 
     }
 
