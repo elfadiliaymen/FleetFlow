@@ -1,53 +1,59 @@
-name: FleetFlow
+name: FleetFlow_test
 
 on:
   push:
-    branches: ["ci-cd-imane"]
+    branches: [ main, ci-cd-imane ]
   pull_request:
-    branches: ["ci-cd-imane"]
+    branches: [ main, ci-cd-imane ]
 
 jobs:
-  build-test:
+  pipeline:
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: 2005085
           MYSQL_DATABASE: fleetflow
+        ports:
+          - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost"
+          --health-cmd="mysqladmin ping -h localhost -proot"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
-        ports:
+          --health-retries=5
 
-            3307:3306
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-steps:
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-  - name: Checkout code
-    uses: actions/checkout@v4
+      - name: Wait for MySQL
+        run: |
+          echo "Waiting for MySQL..."
+          for i in {1..10}; do
+            nc -z localhost 3306 && echo "MySQL is up!" && exit 0
+            sleep 5
+          done
+          echo "MySQL did not start" && exit 1
 
+      - name: Compile and Test
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/fleetflow
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: 2005085
+        run: mvn clean verify
 
-  - name: Setup Java
-    uses: actions/setup-java@v4
-    with:
-    java-version: '21'
-    distribution: 'temurin'
-    cache: 'maven'
-
-
-  - name: Run Tests
-    run: mvn test
-    env:
-    SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/fleetflow
-    SPRING_DATASOURCE_USERNAME: root
-    SPRING_DATASOURCE_PASSWORD: 2005085
-    SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    SPRING_FLYWAY_ENABLED: true
-
-
-  - name: Build with Maven
-    run: mvn package -DskipTests
+      - name: Save JAR
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fleetflow-executable
+          path: target/*.jar
