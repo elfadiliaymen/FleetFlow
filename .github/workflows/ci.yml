@@ -2,9 +2,9 @@ name: FleetFlow_test
 
 on:
   push:
-    branches: [ main, ci-cd-imane ]
+    branches: ci-cd-imane
   pull_request:
-    branches: [ main, ci-cd-imane ]
+    branches:  ci-cd-imane
 
 jobs:
   pipeline:
