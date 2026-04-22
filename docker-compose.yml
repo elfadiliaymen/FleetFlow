@@ -11,7 +11,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/fleetflow?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 2005085
+      SPRING_DATASOURCE_PASSWORD: 1234
     networks:
       - app_network
 
@@ -20,12 +20,12 @@ services:
     container_name: mysql_db
     restart: always
     ports:
-      - "3307:3306"
+      - "3307:3307"
     networks:
       - app_network
     environment:
       MYSQL_DATABASE: fleetflow
-      MYSQL_ROOT_PASSWORD: 2005085
+      MYSQL_ROOT_PASSWORD: 1234
     volumes:
       - db_data:/var/lib/mysql
 
