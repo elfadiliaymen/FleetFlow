@@ -13,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Chauffeur {
+public class Chauffeur extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
