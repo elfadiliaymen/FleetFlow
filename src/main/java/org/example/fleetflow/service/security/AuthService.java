@@ -1,11 +1,12 @@
 package org.example.fleetflow.service.security;
 
 import lombok.RequiredArgsConstructor;
-import org.example.healthcare_s.dto.userdto.RegisterUser;
-import org.example.healthcare_s.entity.User;
-import org.example.healthcare_s.enums.Role;
-import org.example.healthcare_s.mapper.security.AuthMapper;
-import org.example.healthcare_s.repository.security.UserRepository;
+import org.example.fleetflow.dto.userdto.RegisterUser;
+import org.example.fleetflow.enums.Role;
+import org.example.fleetflow.mapper.security.AuthMapper;
+
+import org.example.fleetflow.model.User;
+import org.example.fleetflow.repository.security.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,14 +35,14 @@ public class AuthService {
         }
         String role = registerUser.getRole();
         if (role != null) {
-            if (role.equalsIgnoreCase("doctor")){
-                user.setRole(Role.ROLE_DOCTOR);
+            if (role.equalsIgnoreCase("manager")){
+                user.setRole(Role.ROLE_ADMIN);
             }
             if (role.equalsIgnoreCase("admin")){
                 user.setRole(Role.ROLE_ADMIN);
             }
-            if (role.equalsIgnoreCase("patient")){
-                user.setRole(Role.ROLE_PATIENT);
+            if (role.equalsIgnoreCase("chauffeur")){
+                user.setRole(Role.ROLE_CHAUFFEUR);
             }
         } else if (role == null) {
             throw  new RuntimeException("remplir le role");

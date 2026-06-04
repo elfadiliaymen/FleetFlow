@@ -9,13 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClientDTO {
-    Long id;
-    @NotBlank(message="ce champ est obligatoire")
 
     String nom;
     @Email(message="email n'est pas valide")
+    @NotBlank(message="email est obligatoire")
     String email;
-    @NotBlank(message="ce champ est obligatoire")
+
 
     String ville;
     @NotBlank(message="ce champ est obligatoire")

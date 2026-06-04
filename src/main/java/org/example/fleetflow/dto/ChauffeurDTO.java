@@ -10,8 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ChauffeurDTO {
-    private Long id;
-    @NotBlank(message="le nom est obligatoire")
+
     private String nom;
     @NotBlank(message="le telephone est obligatoire")
 
