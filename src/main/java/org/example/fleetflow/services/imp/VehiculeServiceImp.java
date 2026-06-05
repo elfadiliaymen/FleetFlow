@@ -16,7 +16,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public   abstract class VehiculeServiceImp implements VehiculeService {
+public  class VehiculeServiceImp implements VehiculeService {
     private final VehiculeRepository vehiculeRepository;
     private final VehiculeMapper vehiculeMapper;
 
