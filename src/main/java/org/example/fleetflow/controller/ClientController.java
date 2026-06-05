@@ -2,7 +2,8 @@ package org.example.fleetflow.controller;
 
 import jakarta.validation.Valid;
 import org.example.fleetflow.dto.ClientDTO;
-import org.example.fleetflow.service.ClientService;
+import org.example.fleetflow.services.ClientService;
+import org.example.fleetflow.services.imp.ClientServiceImp;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 
 
 public class ClientController {
-    private ClientService clientService;
+    private final ClientService clientService;
 
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
@@ -50,7 +51,7 @@ public class ClientController {
             @RequestParam (defaultValue ="asc" )String destination
 
     ){
-        Page<ClientDTO>clients=clientService.clientsPaginesEtTries(page,size,sortBy,destination);
+        Page<ClientDTO>clients= clientService.clientsPaginesEtTries(page,size,sortBy,destination);
 
         return ResponseEntity.ok(clients);
     }

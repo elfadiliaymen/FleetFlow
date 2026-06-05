@@ -1,15 +1,15 @@
-package org.example.fleetflow.service;
+package org.example.fleetflow.services;
 
 import org.example.fleetflow.dto.LivraisonDTO;
 import org.example.fleetflow.mapper.LivraisonMapper;
 import org.example.fleetflow.model.Chauffeur;
-import org.example.fleetflow.model.Client;
 import org.example.fleetflow.model.Livraison;
 import org.example.fleetflow.model.Vehicule;
 import org.example.fleetflow.repository.ChauffeurRepository;
 import org.example.fleetflow.repository.ClientRepository;
 import org.example.fleetflow.repository.LivraisonRepository;
 import org.example.fleetflow.repository.VehiculeRepository;
+import org.example.fleetflow.services.imp.LivraisonServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class LivraisonServiceTest {
+class LivraisonServiceImpTest {
 
     @Mock
     private LivraisonRepository livraisonRepository;
@@ -36,7 +36,7 @@ class LivraisonServiceTest {
     private LivraisonMapper livraisonMapper;
 
     @InjectMocks
-    private LivraisonService livraisonService;
+    private LivraisonServiceImp livraisonServiceImp;
 
     @Test
     void testCreerLivraison() {
@@ -47,7 +47,7 @@ class LivraisonServiceTest {
         when(livraisonRepository.save(any())).thenReturn(new Livraison());
         when(livraisonMapper.toDTO(any())).thenReturn(dtoFake);
 
-        LivraisonDTO result = livraisonService.createLivraison(new LivraisonDTO());
+        LivraisonDTO result = livraisonServiceImp.createLivraison(new LivraisonDTO());
         
         assertNotNull(result);
         assertEquals("EN_ATTENTE", result.getStatut());
@@ -66,8 +66,8 @@ class LivraisonServiceTest {
         dtoResultat.setVehiculeId(3L);
         when(livraisonMapper.toDTO(any())).thenReturn(dtoResultat);
 
-        livraisonService.assignChauffeur(1L, 2L);
-        LivraisonDTO result = livraisonService.assignVehicule(1L, 3L);
+        livraisonServiceImp.assignChauffeur(1L, 2L);
+        LivraisonDTO result = livraisonServiceImp.assignVehicule(1L, 3L);
 
         assertEquals(2L, result.getChauffeurId());
         assertEquals(3L, result.getVehiculeId());
@@ -83,7 +83,7 @@ class LivraisonServiceTest {
         dtoStatut.setStatut("LIVREE");
         when(livraisonMapper.toDTO(any())).thenReturn(dtoStatut);
 
-        LivraisonDTO result = livraisonService.updateStatut(1L, "LIVREE");
+        LivraisonDTO result = livraisonServiceImp.updateStatut(1L, "LIVREE");
         
         assertNotNull(result);
         assertEquals("LIVREE", result.getStatut());

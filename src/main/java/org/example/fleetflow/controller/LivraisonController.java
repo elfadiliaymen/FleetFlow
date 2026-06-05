@@ -1,9 +1,8 @@
 package org.example.fleetflow.controller;
 
 import jakarta.validation.Valid;
-import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.dto.LivraisonDTO;
-import org.example.fleetflow.service.LivraisonService;
+import org.example.fleetflow.services.imp.LivraisonServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,58 +17,58 @@ import java.util.List;
 public class LivraisonController {
 
     @Autowired
-    private LivraisonService livraisonService;
+    private LivraisonServiceImp livraisonServiceImp;
 
     @PostMapping
     public LivraisonDTO creerLivraison(@Valid @RequestBody LivraisonDTO livraisonDTO) {
-        return livraisonService.createLivraison(livraisonDTO);
+        return livraisonServiceImp.createLivraison(livraisonDTO);
     }
 
     @PutMapping("/{id}/statut")
     public LivraisonDTO modifierStatut(@PathVariable Long id,@Valid @RequestParam String statut) {
-        return livraisonService.updateStatut(id, statut);
+        return livraisonServiceImp.updateStatut(id, statut);
     }
 
     @PutMapping("/{id}/assigner-chauffeur/{chauffeurId}")
     public LivraisonDTO assignerChauffeur(@PathVariable Long id, @PathVariable Long chauffeurId) {
-        return livraisonService.assignChauffeur(id, chauffeurId);
+        return livraisonServiceImp.assignChauffeur(id, chauffeurId);
     }
 
     @PutMapping("/{id}/assigner-vehicule/{vehiculeId}")
     public LivraisonDTO assignerVehicule(@PathVariable Long id, @PathVariable Long vehiculeId) {
-        return livraisonService.assignVehicule(id, vehiculeId);
+        return livraisonServiceImp.assignVehicule(id, vehiculeId);
     }
 
     @GetMapping
     public List<LivraisonDTO> listerLivraisons() {
-        return livraisonService.getAllLivraisons();
+        return livraisonServiceImp.getAllLivraisons();
     }
 
     @GetMapping("/statut/{statut}")
     public List<LivraisonDTO> listerParStatut(@PathVariable String statut) {
-        return livraisonService.getByStatut(statut);
+        return livraisonServiceImp.getByStatut(statut);
     }
 
     @GetMapping("/client/{clientId}")
     public List<LivraisonDTO> listerParClient(@PathVariable Long clientId) {
-        return livraisonService.getByClient(clientId);
+        return livraisonServiceImp.getByClient(clientId);
     }
 
     @GetMapping("/recherche-par-dates")
     public List<LivraisonDTO> listerEntreDeuxDates(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime debut,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fin) {
-        return livraisonService.getBetweenDates(debut, fin);
+        return livraisonServiceImp.getBetweenDates(debut, fin);
     }
 
     @GetMapping("/recherche-par-ville")
     public List<LivraisonDTO> listerParVille(@RequestParam String ville) {
-        return livraisonService.getByVille(ville);
+        return livraisonServiceImp.getByVille(ville);
     }
 
     @GetMapping("/chauffeur/{chauffeurId}")
     public List<LivraisonDTO> listerParChauffeur(@PathVariable Long chauffeurId) {
-        return livraisonService.getByChauffeur(chauffeurId);
+        return livraisonServiceImp.getByChauffeur(chauffeurId);
     }
 
     @GetMapping("/livraisonsTriesEtPagines")
@@ -81,7 +80,7 @@ public class LivraisonController {
 
 
     ) {
-        Page<LivraisonDTO> livraisonDTOS =livraisonService.livraisonTriesEtPagines(page, size, sortBy, destination);
+        Page<LivraisonDTO> livraisonDTOS = livraisonServiceImp.livraisonTriesEtPagines(page, size, sortBy, destination);
         return ResponseEntity.ok(livraisonDTOS);
 
     }

@@ -1,6 +1,6 @@
 package org.example.fleetflow.config;
 import lombok.RequiredArgsConstructor;
-import org.example.fleetflow.service.security.JwtAuthFilter;
+import org.example.fleetflow.services.imp.securityImp.JwtAuthFilterImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @RequiredArgsConstructor
 public class ConfigSecurity {
-    private final JwtAuthFilter jwtAuthFilter;
+    private final JwtAuthFilterImp jwtAuthFilterImp;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -30,7 +30,7 @@ public class ConfigSecurity {
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilterImp jwtAuthFilterImp) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
 
@@ -43,7 +43,7 @@ public class ConfigSecurity {
                 .sessionManagement(sess -> sess
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(jwtAuthFilter,
+                .addFilterBefore(jwtAuthFilterImp,
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

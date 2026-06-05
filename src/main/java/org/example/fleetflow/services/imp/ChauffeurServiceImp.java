@@ -1,10 +1,11 @@
-package org.example.fleetflow.service;
+package org.example.fleetflow.services.imp;
 
 import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.mapper.ChauffeurMapper;
 import org.example.fleetflow.repository.ChauffeurRepository;
 import lombok.RequiredArgsConstructor;
+import org.example.fleetflow.services.ChauffeurService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ChauffeurService {
+public class ChauffeurServiceImp implements ChauffeurService {
 
     private final ChauffeurRepository chauffeurRepository;
     private final ChauffeurMapper chauffeurMapper;

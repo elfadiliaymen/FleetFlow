@@ -4,22 +4,20 @@ import org.example.fleetflow.dto.ClientDTO;
 import org.example.fleetflow.mapper.ClientMapper;
 import org.example.fleetflow.model.Client;
 import org.example.fleetflow.repository.ClientRepository;
-import org.example.fleetflow.service.ClientService;
+import org.example.fleetflow.services.imp.ClientServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class ClientServiceTest {
+public class ClientServiceImpTest {
     @InjectMocks
-    ClientService clientService;
+    ClientServiceImp clientServiceImp;
     @Mock
     ClientRepository clientRepository;
     @Mock
@@ -39,7 +37,7 @@ public class ClientServiceTest {
         when(clientMapper.toEntity(clientDTO)).thenReturn(client);
         when(clientRepository.save(client)).thenReturn(savedClient);
         when(clientMapper.toDTO(savedClient)).thenReturn(returnedDTO);
-        ClientDTO resClientDTO=clientService.ajouterClient(clientDTO);
+        ClientDTO resClientDTO= clientServiceImp.ajouterClient(clientDTO);
 
 
         assertNotNull(resClientDTO);
@@ -60,7 +58,7 @@ public class ClientServiceTest {
         when(clientRepository.existsByEmail("imane@gmail.com")).thenReturn(true);
 
         assertThrows(RuntimeException.class,()->
-                clientService.ajouterClient(clientDTO));
+                clientServiceImp.ajouterClient(clientDTO));
 
         verify(clientRepository, times(1)).existsByEmail("imane@gmail.com");
 

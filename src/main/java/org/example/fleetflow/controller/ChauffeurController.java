@@ -2,8 +2,7 @@ package org.example.fleetflow.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.fleetflow.dto.ChauffeurDTO;
-import org.example.fleetflow.service.ChauffeurService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.fleetflow.services.ChauffeurService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package org.example.fleetflow.service.security;
+package org.example.fleetflow.services.imp.securityImp;
 
 
 import io.jsonwebtoken.Claims;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 
 @Component
-public class JwtService {
+public class JwtServiceImp {
 
     private static final String SECRET_KEY =
             "my_super_secure_secret_key_for_jwt_2026_healthcare_app";

@@ -1,4 +1,4 @@
-package org.example.fleetflow.service.security;
+package org.example.fleetflow.services.imp.securityImp;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,9 +17,9 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthFilter extends OncePerRequestFilter {
+public class JwtAuthFilterImp extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtServiceImp jwtServiceImp;
     private final UserDetailsService userDetailsService;
 
     @Override
@@ -42,14 +42,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            email = jwtService.extractUsername(token);
+            email = jwtServiceImp.extractUsername(token);
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
-            if (jwtService.isTokenValid(token, userDetails)) {
+            if (jwtServiceImp.isTokenValid(token, userDetails)) {
 
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(

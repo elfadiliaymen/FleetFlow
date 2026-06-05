@@ -1,9 +1,10 @@
-package org.example.fleetflow.service;
+package org.example.fleetflow.services;
 
 import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.mapper.ChauffeurMapper;
 import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.repository.ChauffeurRepository;
+import org.example.fleetflow.services.imp.ChauffeurServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,7 +26,7 @@ class ChauffeurServiceTest {
     private ChauffeurMapper chauffeurMapper;
 
     @InjectMocks
-    private ChauffeurService chauffeurService;
+    private ChauffeurServiceImp chauffeurServiceImp;
 
     @Test
     void testListerChauffeursDisponibles() {
@@ -35,7 +36,7 @@ class ChauffeurServiceTest {
         when(chauffeurRepository.findByDisponibleTrue()).thenReturn(List.of(c));
         when(chauffeurMapper.toDTOList(any())).thenReturn(List.of(dto));
 
-        List<ChauffeurDTO> result = chauffeurService.getAvailableChauffeurs();
+        List<ChauffeurDTO> result = chauffeurServiceImp.getAvailableChauffeurs();
         
         assertNotNull(result);
         assertEquals(1, result.size());

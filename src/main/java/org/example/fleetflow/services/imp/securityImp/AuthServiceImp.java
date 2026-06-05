@@ -1,4 +1,4 @@
-package org.example.fleetflow.service.security;
+package org.example.fleetflow.services.imp.securityImp;
 
 import lombok.RequiredArgsConstructor;
 import org.example.fleetflow.dto.userdto.RegisterUser;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+public class AuthServiceImp {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final JwtServiceImp jwtServiceImp;
     private final AuthMapper authMapper;
 
 
@@ -61,7 +61,7 @@ public class AuthService {
                 )
         );
         UserDetails user = (UserDetails) auth.getPrincipal();
-        return jwtService.generateToken(user);
+        return jwtServiceImp.generateToken(user);
     }
 
 

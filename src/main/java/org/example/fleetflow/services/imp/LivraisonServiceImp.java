@@ -1,6 +1,5 @@
-package org.example.fleetflow.service;
+package org.example.fleetflow.services.imp;
 
-import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.model.Client;
 import org.example.fleetflow.model.Livraison;
@@ -23,7 +22,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LivraisonService {
+public class LivraisonServiceImp {
 
     private final LivraisonRepository livraisonRepository;
     private final ChauffeurRepository chauffeurRepository;

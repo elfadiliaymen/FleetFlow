@@ -1,13 +1,10 @@
 package org.example.fleetflow;
 
-import org.example.fleetflow.dto.LivraisonDTO;
 import org.example.fleetflow.dto.VehiculeDTO;
-import org.example.fleetflow.mapper.ClientMapper;
 import org.example.fleetflow.mapper.VehiculeMapper;
 import org.example.fleetflow.model.Vehicule;
 import org.example.fleetflow.repository.VehiculeRepository;
-import org.example.fleetflow.service.ClientService;
-import org.example.fleetflow.service.VehiculeService;
+import org.example.fleetflow.services.imp.VehiculeServiceImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,13 +17,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class VehiculeServiceTest {
+public class VehiculeServiceImpTest {
     @Mock
     VehiculeRepository vehiculeRepository;
     @Mock
     VehiculeMapper vehiculeMapper ;
     @InjectMocks
-    VehiculeService vehiculeService ;
+    VehiculeServiceImp vehiculeServiceImp;
 @Test
     void listerVehiculesDisponibles(){
         String disponible="disponible";
@@ -38,7 +35,7 @@ public class VehiculeServiceTest {
         when(vehiculeRepository.findByStatut(disponible)).thenReturn(vehicules);
         when(vehiculeMapper.toDTOList(vehicules)).thenReturn(vehiculeDTOS);
 
-        List<VehiculeDTO> resultat= vehiculeService.getVehiculeDisponibles();
+        List<VehiculeDTO> resultat= vehiculeServiceImp.getVehiculeDisponibles();
 
         verify(vehiculeMapper,times(1)).toDTOList(vehicules);
         verify(vehiculeRepository,times(1)).findByStatut(disponible);
@@ -64,7 +61,7 @@ public class VehiculeServiceTest {
     when(vehiculeRepository.findByCapaciteGreaterThan(capacite)).thenReturn(vehicules);
     when(vehiculeMapper.toDTOList(vehicules)).thenReturn(vehiculeDTOS);
 
-    List<VehiculeDTO> resultat= vehiculeService.getVehiculesCapaciteSuperieur(capacite);
+    List<VehiculeDTO> resultat= vehiculeServiceImp.getVehiculesCapaciteSuperieur(capacite);
 
 
     verify(vehiculeRepository,times(1)).findByCapaciteGreaterThan(capacite);

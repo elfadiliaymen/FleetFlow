@@ -1,4 +1,4 @@
-package org.example.fleetflow.service.security;
+package org.example.fleetflow.services.imp.securityImp;
 
 import lombok.RequiredArgsConstructor;
 import org.example.fleetflow.repository.security.UserRepository;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailService implements UserDetailsService {
+public class CustomUserDetailServiceImp implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
