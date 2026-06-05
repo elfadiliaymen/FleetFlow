@@ -1,5 +1,6 @@
 package org.example.fleetflow.service;
 
+import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.model.Client;
 import org.example.fleetflow.model.Livraison;
@@ -11,6 +12,10 @@ import org.example.fleetflow.repository.ClientRepository;
 import org.example.fleetflow.repository.LivraisonRepository;
 import org.example.fleetflow.repository.VehiculeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -99,6 +104,14 @@ public class LivraisonService {
 
     public List<LivraisonDTO> getByClient(Long clientId) {
         return livraisonMapper.toDTOList(livraisonRepository.findByClientId(clientId));
+    }
+    public Page<LivraisonDTO> livraisonTriesEtPagines(int page, int size, String sortBy, String destination){
+        Sort sort=destination.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Pageable pageable= PageRequest.of(page,size,sort);
+        Page<Livraison> livraisons=livraisonRepository.findAll(pageable);
+        return livraisons.map(livraisonMapper::toDTO);
+
+
     }
 
 }

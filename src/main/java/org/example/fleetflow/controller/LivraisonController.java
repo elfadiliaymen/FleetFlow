@@ -1,10 +1,13 @@
 package org.example.fleetflow.controller;
 
 import jakarta.validation.Valid;
+import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.dto.LivraisonDTO;
 import org.example.fleetflow.service.LivraisonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -67,5 +70,19 @@ public class LivraisonController {
     @GetMapping("/chauffeur/{chauffeurId}")
     public List<LivraisonDTO> listerParChauffeur(@PathVariable Long chauffeurId) {
         return livraisonService.getByChauffeur(chauffeurId);
+    }
+
+    @GetMapping("/livraisonsTriesEtPagines")
+    public ResponseEntity<Page<LivraisonDTO>> livraisonTriesEtPagines(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "dateLivraison") String sortBy,
+            @RequestParam(defaultValue = "asc") String destination
+
+
+    ) {
+        Page<LivraisonDTO> livraisonDTOS =livraisonService.livraisonTriesEtPagines(page, size, sortBy, destination);
+        return ResponseEntity.ok(livraisonDTOS);
+
     }
 }
