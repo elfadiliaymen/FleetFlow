@@ -43,7 +43,7 @@ public class ClientController {
 
     }
     @GetMapping("/clientsPaginesEtTries")
-    public ResponseEntity<Page>clientsPaginesEtTries(
+    public ResponseEntity<Page<ClientDTO>>clientsPaginesEtTries(
             @RequestParam (defaultValue = "0")int page,
             @RequestParam(defaultValue ="20")int size,
             @RequestParam (defaultValue ="nom" )String sortBy,

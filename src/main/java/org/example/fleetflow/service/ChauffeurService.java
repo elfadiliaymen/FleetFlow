@@ -5,6 +5,10 @@ import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.mapper.ChauffeurMapper;
 import org.example.fleetflow.repository.ChauffeurRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +49,14 @@ public class ChauffeurService {
 
     public List<ChauffeurDTO> getByPermisType(String permisType) {
         return chauffeurMapper.toDTOList(chauffeurRepository.findByPermisType(permisType));
+    }
+
+    public Page<ChauffeurDTO>chauffeursTriesEtPagines(int page,int size,String sortBy,String destination){
+        Sort sort=destination.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Pageable pageable= PageRequest.of(page,size,sort);
+        Page<Chauffeur> chauffeurs=chauffeurRepository.findAll(pageable);
+        return chauffeurs.map(chauffeurMapper::toDTO);
+
+
     }
 }

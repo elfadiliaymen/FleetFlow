@@ -1,17 +1,21 @@
 package org.example.fleetflow.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.service.ChauffeurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/chauffeurs")
 public class ChauffeurController {
 
-    @Autowired
-    private ChauffeurService chauffeurService;
+
+    private final ChauffeurService chauffeurService;
 
     @GetMapping
     public List<ChauffeurDTO> listerChauffeurs() {
@@ -42,5 +46,22 @@ public class ChauffeurController {
     @GetMapping("/permis/{type}")
     public List<ChauffeurDTO> listerParPermis(@PathVariable String type) {
         return chauffeurService.getByPermisType(type);
+    }
+
+    @GetMapping("/chauffeursTriesEtPagines")
+    public ResponseEntity<Page<ChauffeurDTO>>chauffeursTriesEtPagines(
+            @RequestParam(defaultValue ="0")int page,
+            @RequestParam(defaultValue ="20")int size,
+            @RequestParam(defaultValue ="nom")String sortBy,
+            @RequestParam(defaultValue ="asc")String destination
+
+
+    )
+    {
+        Page<ChauffeurDTO> chauffeurDTOS=chauffeurService.chauffeursTriesEtPagines(page,size,sortBy,destination);
+        return ResponseEntity.ok(chauffeurDTOS);
+
+
+
     }
 }
