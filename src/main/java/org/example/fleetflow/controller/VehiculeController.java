@@ -7,6 +7,7 @@ import org.example.fleetflow.mapper.VehiculeMapper;
 import org.example.fleetflow.services.VehiculeService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class VehiculeController {
 
 
 
-
+    @PreAuthorize("haRole('MANAGER')")
     @GetMapping
     public List<VehiculeDTO> listerVehicules() {
         return vehiculeService.getAllVehicules();

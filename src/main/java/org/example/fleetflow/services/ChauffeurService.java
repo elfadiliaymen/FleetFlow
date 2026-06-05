@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ChauffeurService {
-    public List<ChauffeurDTO> getAvailableChauffeurs();
+     List<ChauffeurDTO> getAvailableChauffeurs();
     List<ChauffeurDTO> getAllChauffeurs();
      ChauffeurDTO addChauffeur(ChauffeurDTO chauffeurDTO);
      ChauffeurDTO updateChauffeur(Long id, ChauffeurDTO chauffeurDTO);

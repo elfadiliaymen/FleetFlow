@@ -5,6 +5,7 @@ import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.services.ChauffeurService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public class ChauffeurController {
     private final ChauffeurService chauffeurService;
 
     @GetMapping
+    @PreAuthorize("haRole('MANAGER')")
+
     public List<ChauffeurDTO> listerChauffeurs() {
         return chauffeurService.getAllChauffeurs();
     }
