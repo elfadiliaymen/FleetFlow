@@ -100,4 +100,5 @@ public class LivraisonService {
     public List<LivraisonDTO> getByClient(Long clientId) {
         return livraisonMapper.toDTOList(livraisonRepository.findByClientId(clientId));
     }
+
 }

@@ -1,10 +1,12 @@
 package org.example.fleetflow.controller;
 
 import jakarta.validation.Valid;
+import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.dto.VehiculeDTO;
 import org.example.fleetflow.mapper.VehiculeMapper;
 import org.example.fleetflow.service.ClientService;
 import org.example.fleetflow.service.VehiculeService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +44,7 @@ public class VehiculeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VehiculeDTO> modifierVehicule(@PathVariable long id,@Valid @RequestBody VehiculeDTO vehiculeDTO) {
+    public ResponseEntity<VehiculeDTO> modifierVehicule(@PathVariable long id, @Valid @RequestBody VehiculeDTO vehiculeDTO) {
         return ResponseEntity.ok(vehiculeService.modifierVehicule(id, vehiculeDTO));
     }
 
@@ -64,5 +66,18 @@ public class VehiculeController {
 
     }
 
+    @GetMapping("/vehiculesTriesEtPagines")
+    public ResponseEntity<Page<VehiculeDTO>> vehiculesTriesEtPagines(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "capacite") String sortBy,
+            @RequestParam(defaultValue = "asc") String destination
 
+
+    ) {
+        Page<VehiculeDTO> vehiculeDTOS = vehiculeService.vehiculesTriesEtPagines(page, size, sortBy, destination);
+        return ResponseEntity.ok(vehiculeDTOS);
+
+
+    }
 }

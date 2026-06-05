@@ -49,19 +49,18 @@ public class ChauffeurController {
     }
 
     @GetMapping("/chauffeursTriesEtPagines")
-    public ResponseEntity<Page<ChauffeurDTO>>chauffeursTriesEtPagines(
-            @RequestParam(defaultValue ="0")int page,
-            @RequestParam(defaultValue ="20")int size,
-            @RequestParam(defaultValue ="nom")String sortBy,
-            @RequestParam(defaultValue ="asc")String destination
+    public ResponseEntity<Page<ChauffeurDTO>> chauffeursTriesEtPagines(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam(defaultValue = "nom") String sortBy,
+            @RequestParam(defaultValue = "asc") String destination
 
 
-    )
-    {
-        Page<ChauffeurDTO> chauffeurDTOS=chauffeurService.chauffeursTriesEtPagines(page,size,sortBy,destination);
+    ) {
+        Page<ChauffeurDTO> chauffeurDTOS = chauffeurService.chauffeursTriesEtPagines(page, size, sortBy, destination);
         return ResponseEntity.ok(chauffeurDTOS);
 
-
-
     }
+
+
 }

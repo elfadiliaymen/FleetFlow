@@ -1,11 +1,17 @@
 package org.example.fleetflow.service;
 
 import lombok.AllArgsConstructor;
+import org.example.fleetflow.dto.ChauffeurDTO;
 import org.example.fleetflow.dto.VehiculeDTO;
+import org.example.fleetflow.model.Chauffeur;
 import org.example.fleetflow.model.Vehicule;
 import org.example.fleetflow.mapper.VehiculeMapper;
 import org.example.fleetflow.repository.ClientRepository;
 import org.example.fleetflow.repository.VehiculeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +56,14 @@ public List<VehiculeDTO>getVehiculeByStatut(String statut){
 public List<VehiculeDTO>getVehiculesCapaciteSuperieur(double capacite ){
     return  vehiculeMapper.toDTOList(vehiculeRepository.findByCapaciteGreaterThan(capacite));
 }
+    public Page<VehiculeDTO> vehiculesTriesEtPagines(int page, int size, String sortBy, String destination){
+        Sort sort=destination.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Pageable pageable= PageRequest.of(page,size,sort);
+        Page<Vehicule> vehicules=vehiculeRepository.findAll(pageable);
+        return vehicules.map(vehiculeMapper::toDTO);
 
+
+    }
 
 }
 
