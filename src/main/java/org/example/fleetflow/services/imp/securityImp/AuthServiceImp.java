@@ -7,6 +7,7 @@ import org.example.fleetflow.mapper.security.AuthMapper;
 
 import org.example.fleetflow.model.User;
 import org.example.fleetflow.repository.security.UserRepository;
+import org.example.fleetflow.services.security.AuthService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImp {
+public class AuthServiceImp implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
