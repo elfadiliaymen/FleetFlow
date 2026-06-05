@@ -5,6 +5,7 @@ import org.example.fleetflow.dto.VehiculeDTO;
 import org.example.fleetflow.model.Vehicule;
 import org.example.fleetflow.mapper.VehiculeMapper;
 import org.example.fleetflow.repository.VehiculeRepository;
+import org.example.fleetflow.services.VehiculeService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class VehiculeServiceImp {
+public   abstract class VehiculeServiceImp implements VehiculeService {
     private final VehiculeRepository vehiculeRepository;
     private final VehiculeMapper vehiculeMapper;
 

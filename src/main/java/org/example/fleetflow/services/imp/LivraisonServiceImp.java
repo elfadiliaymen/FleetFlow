@@ -11,6 +11,7 @@ import org.example.fleetflow.repository.ClientRepository;
 import org.example.fleetflow.repository.LivraisonRepository;
 import org.example.fleetflow.repository.VehiculeRepository;
 import lombok.RequiredArgsConstructor;
+import org.example.fleetflow.services.LivraisonService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LivraisonServiceImp {
+public class LivraisonServiceImp implements LivraisonService {
 
     private final LivraisonRepository livraisonRepository;
     private final ChauffeurRepository chauffeurRepository;

@@ -1,9 +1,10 @@
 package org.example.fleetflow.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.example.fleetflow.dto.VehiculeDTO;
 import org.example.fleetflow.mapper.VehiculeMapper;
-import org.example.fleetflow.services.imp.VehiculeServiceImp;
+import org.example.fleetflow.services.VehiculeService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,56 +12,54 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/vehicules")
 
 
 public class VehiculeController {
-    private final VehiculeServiceImp vehiculeServiceImp;
-    private final VehiculeMapper vehiculeMapper;
+    private final VehiculeService vehiculeService;
 
 
-    public VehiculeController(VehiculeServiceImp vehiculeServiceImp, VehiculeMapper vehiculeMapper) {
-        this.vehiculeServiceImp = vehiculeServiceImp;
-        this.vehiculeMapper = vehiculeMapper;
-    }
+
+
 
     @GetMapping
     public List<VehiculeDTO> listerVehicules() {
-        return vehiculeServiceImp.getAllVehicules();
+        return vehiculeService.getAllVehicules();
     }
 
     @GetMapping("/disponible")
     public List<VehiculeDTO> listerVehiculesDisponibles() {
-        return vehiculeServiceImp.getVehiculeDisponibles();
+        return vehiculeService.getVehiculeDisponibles();
     }
 
     @PostMapping
     public ResponseEntity<VehiculeDTO> ajouterVehicule(
             @Valid @RequestBody VehiculeDTO vehiculeDTO
     ) {
-        return ResponseEntity.ok(vehiculeServiceImp.ajouterVehicule(vehiculeDTO));
+        return ResponseEntity.ok(vehiculeService.ajouterVehicule(vehiculeDTO));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<VehiculeDTO> modifierVehicule(@PathVariable long id, @Valid @RequestBody VehiculeDTO vehiculeDTO) {
-        return ResponseEntity.ok(vehiculeServiceImp.modifierVehicule(id, vehiculeDTO));
+        return ResponseEntity.ok(vehiculeService.modifierVehicule(id, vehiculeDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> supprimerVehicule(@PathVariable long id) {
-        vehiculeServiceImp.SupprimerVehicule(id);
+        vehiculeService.SupprimerVehicule(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("statut/{statut}")
     public ResponseEntity<List<VehiculeDTO>> getVehiculesByStatut(@PathVariable String statut) {
-        return ResponseEntity.ok(vehiculeServiceImp.getVehiculeByStatut(statut));
+        return ResponseEntity.ok(vehiculeService.getVehiculeByStatut(statut));
 
     }
 
     @GetMapping("capacite/{capacite}")
     public ResponseEntity<List<VehiculeDTO>> getVehiculesCapaciteSuperieur(@PathVariable double capacite) {
-        return ResponseEntity.ok(vehiculeServiceImp.getVehiculesCapaciteSuperieur(capacite));
+        return ResponseEntity.ok(vehiculeService.getVehiculesCapaciteSuperieur(capacite));
 
     }
 
@@ -73,7 +72,7 @@ public class VehiculeController {
 
 
     ) {
-        Page<VehiculeDTO> vehiculeDTOS = vehiculeServiceImp.vehiculesTriesEtPagines(page, size, sortBy, destination);
+        Page<VehiculeDTO> vehiculeDTOS = vehiculeService.vehiculesTriesEtPagines(page, size, sortBy, destination);
         return ResponseEntity.ok(vehiculeDTOS);
 
 
