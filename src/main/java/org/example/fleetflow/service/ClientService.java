@@ -1,13 +1,18 @@
 package org.example.fleetflow.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.catalina.connector.Request;
 import org.example.fleetflow.dto.ClientDTO;
 import org.example.fleetflow.model.Client;
 import org.example.fleetflow.mapper.ClientMapper;
 import org.example.fleetflow.repository.ClientRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ClientService {
@@ -42,6 +47,15 @@ public class ClientService {
     public void  SupprimerClient(Long id){
 
         clientRepository.deleteById(id);
+    }
+
+    public Page<ClientDTO>clientsPaginesEtTries(int page,int size, String sortBy, String direction){
+        Sort sort=direction.equalsIgnoreCase("asc")? Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(page,size,sort);
+        Page<Client>clients=clientRepository.findAll(pageable);
+        return clients.map(clientMapper::toDTO);
+
+
     }
 
 }
