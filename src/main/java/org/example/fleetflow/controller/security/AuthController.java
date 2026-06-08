@@ -29,7 +29,7 @@ public class AuthController {
     public ResponseEntity<String>login(@Valid @RequestBody LoginUser user){
         return ResponseEntity.ok(authService.login(user.getEmail(),user.getPassword()));
     }
- 
+
 
 
 

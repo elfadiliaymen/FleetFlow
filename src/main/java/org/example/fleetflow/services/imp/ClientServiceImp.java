@@ -54,8 +54,6 @@ public class ClientServiceImp implements ClientService {
         Pageable pageable = PageRequest.of(page,size,sort);
         Page<Client>clients=clientRepository.findAll(pageable);
         return clients.map(clientMapper::toDTO);
-
-
     }
 
 }

@@ -2,9 +2,9 @@ name: FleetFlow_test
 
 on:
   push:
-    branches: ci-cd-imane
+    branches: flteeflow5-security
   pull_request:
-    branches:  ci-cd-imane
+    branches:  flteeflow5-security
 
 jobs:
   pipeline:
